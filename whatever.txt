@@ -1,6 +1,11 @@
-insert,Craig,50
-insert,Brian,35
-insert,Jaden,30
-insert,Jane,20
-insert,Richard,30
+insert,Virginia,15
+insert,Kayla,40
+insert,Lucas,40
+insert,Parker,50
+insert,Fiona,50
+insert,Catherine,10
+insert,Cecilia,20
+insert,Elliot,15
+insert,Valerie,45
+insert,Doris,40
 dump_rows

@@ -63,6 +63,7 @@ class DB():
     # Insert a row into the database and update the index.
     def insert(self,name: str, age: int):
         self.rows.append([name, age])
+        
         if self.root is None:
             self.root = Node(age, [len(self.rows)-1], None, None, None, None, None)
             return
