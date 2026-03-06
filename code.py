@@ -62,20 +62,24 @@ class DB():
 
     # Insert a row into the database and update the index.
     def insert(self,name: str, age: int):
-        self.rows.append(name, age)
+        self.rows.append([name, age])
+        if self.root is None:
+            self.root = Node(age, [len(self.rows)-1], None, None, None, None, None)
+            return
+        
         current = self.root 
-        par = self.root
-        while current!=None :
+        par = None
+
+        while current is not None :
+            par = current
             if age > current.age :
-                par = current 
                 current=current.rightchild
             elif age < current.age :
-                par = current
                 current= current.leftchild 
-            elif current.age ==current : 
-                par = current
-                current.rownumbers(len(self.rows)-1)
-        if current == None :
+            elif current.age == age : 
+                current.rownumbers.append(len(self.rows)-1)
+                
+        if par == None :
             nunode = Node(age, self.rows[len(self.rows)-1], None, None, par, None, None)
             if par.age > age :
                 par.leftchild = nunode
