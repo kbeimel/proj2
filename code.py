@@ -76,7 +76,7 @@ class DB():
                 par = current
                 current.rownumbers(len(self.rows)-1)
         if current == None :
-            nunode = Node(age, len(self.rows), None, None, par, None, None)
+            nunode = Node(age, self.rows[len(self.rows)-1], None, None, par, None, None)
             if par.age > age :
                 par.leftchild = nunode
             else :
