@@ -78,13 +78,12 @@ class DB():
                 current= current.leftchild 
             elif current.age == age : 
                 current.rownumbers.append(len(self.rows)-1)
-                break
-        if par == None :
-            nunode = Node(age, self.rows[len(self.rows)-1], None, None, par, None, None)
-            if par.age > age :
-                par.leftchild = nunode
-            else :
-                par.rightchild = nunode                     
+                return
+        nunode = Node(age, (len(self.rows)-1), None, None, par, None, None)
+        if par.age > age :
+            par.leftchild = nunode
+        else :
+            par.rightchild = nunode                     
 
 
 
