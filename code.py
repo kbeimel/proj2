@@ -80,28 +80,44 @@ class DB():
             elif current.age == age : 
                 current.rownumbers.append(len(self.rows)-1)
                 return
-        nunode = Node(age, [(len(self.rows)-1)], None, None, par, None, None)
-        if par.age > age :
-            par.leftchild = nunode
-            nunode.ios = par
-            nunode.iop = par.iop
-            if par.iop is not None :
-                par.iop.ios = nunode
-            par.iop = nunode
-        else :
-            par.rightchild = nunode   
-            nunode.iop = par
-            nunode.ios = par.ios
-            if par.ios is not None :
-                par.ios.iop = nunode      
-            par.ios = nunode            
+        nunode = Node(age, [(len(self.rows)-1)], None, None, par, None, None) 
+        if par is not None :
+            if par.age > age :
+                par.leftchild = nunode
+                nunode.ios = par
+                nunode.iop = par.iop
+                if par.iop is not None :
+                    par.iop.ios = nunode
+                par.iop = nunode
+            else :
+                par.rightchild = nunode   
+                nunode.iop = par
+                nunode.ios = par.ios
+                if par.ios is not None :
+                    par.ios.iop = nunode      
+                par.ios = nunode            
 
 
 
     # Delete a row from the database and update the index.
     def delete(self,name:str):
-        # The next line is a placeholder to make sure the code runs.
-        placeholder = True
+        ind = None 
+        for i in enumerate(self.rows) :
+            if self.rows[i[0]][0] == name :
+                (ind,age) = (i[0],self.rows[i[0]][1])
+                break
+        if ind is not None and age is not None :
+            self.rows.pop(ind)
+            current = self.root 
+            while current is not None :
+                if ind == age :
+                    current.rownumbers.remove(ind)
+                elif age > current.age :
+                    current = current.rightchild 
+                else :
+                    current = current.leftchild
+        # The rest of the delete code is not implemented, but it should be similar to the
+            
 
     # Use the index to find a the people whose age is specified.
     def people_single(self,age:int):

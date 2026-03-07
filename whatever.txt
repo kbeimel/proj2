@@ -8,4 +8,5 @@ insert,Cecilia,20
 insert,Elliot,15
 insert,Valerie,45
 insert,Doris,40
+delete,Catherine
 dump_rows
