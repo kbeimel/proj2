@@ -83,8 +83,10 @@ class DB():
         nunode = Node(age, [(len(self.rows)-1)], None, None, par, None, None)
         if par.age > age :
             par.leftchild = nunode
+            par.leftchild.ios = par
         else :
-            par.rightchild = nunode                     
+            par.rightchild = nunode   
+            par.rightchild.iop = par                  
 
 
 
