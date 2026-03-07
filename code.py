@@ -85,11 +85,15 @@ class DB():
             par.leftchild = nunode
             nunode.ios = par
             nunode.iop = par.iop
+            if par.iop is not None :
+                par.iop.ios = nunode
             par.iop = nunode
         else :
             par.rightchild = nunode   
             nunode.iop = par
-            nunode.ios = par.ios      
+            nunode.ios = par.ios
+            if par.ios is not None :
+                par.ios.iop = nunode      
             par.ios = nunode            
 
 
