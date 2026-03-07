@@ -116,7 +116,6 @@ class DB():
                     current = current.rightchild 
                 else :
                     current = current.leftchild
-        # The rest of the delete code is not implemented, but it should be similar to the
             
 
     # Use the index to find a the people whose age is specified.
