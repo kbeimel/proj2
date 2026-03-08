@@ -60,6 +60,36 @@ class DB():
             dict_repr = _to_dict(self.root)
         return json.dumps(dict_repr,indent = 2)
 
+    def infix(self, node: Node, index):
+        if node is None:
+            return
+        node.rownumbers = [r - 1 if r > index else r for r in node.rownumbers]
+        self.infix(node.leftchild, index)
+        self.infix(node.rightchild, index)
+
+    def remove_node(self, node: Node):
+        if node.leftchild is not None and node.rightchild is not None:
+            ciop = node.iop
+            if ciop:
+                node.age = ciop.age
+                node.rownumbers = ciop.rownumbers
+
+                self.remove_node(ciop)
+                return
+        else:
+            kid = node.leftchild if node.leftchild is not None else node.rightchild
+            if node.parent:
+                if node.parent.leftchild == node:
+                    node.parent.leftchild = kid
+                else:
+                    node.parent.rightchild = kid
+            if kid:
+                kid.parent = node.parent
+            if node.iop:
+                node.iop.ios = node.ios
+            if node.ios:
+                node.ios.iop = node.iop
+
     # Insert a row into the database and update the index.
     def insert(self,name: str, age: int):
         self.rows.append([name, age])
@@ -101,22 +131,29 @@ class DB():
 
     # Delete a row from the database and update the index.
     def delete(self,name:str):
-        ind = None 
-        for i in enumerate(self.rows) :
-            if self.rows[i[0]][0] == name :
-                (ind,age) = (i[0],self.rows[i[0]][1])
+        ind = None
+        age = None
+        for i, row in enumerate(self.rows):
+            if row[0] == name:
+                (ind, age) = (i, row[1])
                 break
-        if ind is not None and age is not None :
-            self.rows.pop(ind)
+        if ind is not None:
             current = self.root 
+
             while current is not None :
-                if ind == age :
-                    current.rownumbers.remove(ind)
+                if age == current.age:
+                    if ind in current.rownumbers:
+                        current.rownumbers.remove(ind)
+                    if not current.rownumbers:
+                        self.remove_node(current)
+                    break
                 elif age > current.age :
-                    current = current.rightchild 
+                    current = current.rightchild
                 else :
                     current = current.leftchild
-            
+            self.rows.pop(ind)
+            if self.root:
+                self.infix(self.root, ind)
 
     # Use the index to find a the people whose age is specified.
     def people_single(self,age:int):
