@@ -189,7 +189,20 @@ class DB():
         # n should be the list of names.
         d = 0
         n = []
-        # Return the object.
+        current = self.root 
+        fn = None
+        while current is not None: 
+            if current.age >= age_min : 
+                fn=current
+                current = current.leftchild
+            else :
+                current = current.rightchild
+        curr2 = fn 
+        while curr2 is not None and curr2.age <= age_max :
+                d += 1
+                n.extend([self.rows[i][0] for i in curr2.rownumbers])
+                curr2 = curr2.ios
+                
         n.sort()
         r = {'nodecount' : d,'names': n }
         return json.dumps(r,indent = 2)

@@ -4,3 +4,5 @@ a BST which acts as an index on the database. each node in the BST has a key (ag
     ---> when we delete and insert rows to the database, we have to edit the BST to account for these changes. 
 
 people_single traverses through the tree looking for an age, and returns the depth and names of those with that age
+
+people_range traverses through the tree, but instead of looking for a particular age, it looks for all ages in a range
