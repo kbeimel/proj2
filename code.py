@@ -165,6 +165,18 @@ class DB():
         # n should be the list of names.
         d = 0
         n = []
+        current = self.root 
+        while current is not None: 
+            if current.age == age: 
+                n = [self.rows[i][0] for i in current.rownumbers]
+                break
+            elif current.age > age : 
+                current = current.leftchild
+                d += 1
+            else :
+                current = current.rightchild
+                d += 1
+
         # Return the object.
         n.sort()
         r = {'depth' : d,'names': n }

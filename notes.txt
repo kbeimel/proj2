@@ -2,3 +2,5 @@ project is a database containing a zero-indexed list of rows, each row is a stri
 
 a BST which acts as an index on the database. each node in the BST has a key (age), and a list of integers (row numbers in which the age appears)
     ---> when we delete and insert rows to the database, we have to edit the BST to account for these changes. 
+
+people_single traverses through the tree looking for an age, and returns the depth and names of those with that age
