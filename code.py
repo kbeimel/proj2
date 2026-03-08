@@ -73,7 +73,7 @@ class DB():
             if ciop:
                 node.age = ciop.age
                 node.rownumbers = ciop.rownumbers
-
+                node.iop= ciop.iop
                 self.remove_node(ciop)
                 return
         else:
@@ -83,8 +83,11 @@ class DB():
                     node.parent.leftchild = kid
                 else:
                     node.parent.rightchild = kid
+            else: 
+                self.root = kid
             if kid:
                 kid.parent = node.parent
+
             if node.iop:
                 node.iop.ios = node.ios
             if node.ios:
